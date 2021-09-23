@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<!-- HTML Setup -->
+<html class = "no-js" lang = "">
+   <!-- Header Code -->
+   <head>
+      <meta charset = "utf-8">
+      <meta http-equiv = "x-ua-compatible" content = "ie = edge">
+      <title>Gamification Proof of Concept</title>
+      <meta name = "description" content = "">
+      <meta name = "viewpoint" content = "width = device-width", initial-scale = 1>
+      
+      <!-- Linking -->
+      <link rel = "stylesheet" type = "text/css" href = "site.css"> 
+  
+      <!-- Styling -->
+      <style>
+      
+         /* Scrolling */
+         html { overflow: auto;}
+        
+         /* Text Fonts */
+         body { font-family: Verdana,Arial,Helvetica; }         
+      </style>
+      
+      <!-- JQuery AJAX source for Achievements --> 
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+            
+      <!-- This script initialises the achievements -->
+      <script>
+        $(document).ready(function()
+        {
+            Achievements.initialise('Achievements');
+        });
+      </script>
+   </head>
+
+   <!------------------------------------------------------------------------------------------------------------------------------------>
+
+   <!-- Visible Page Body -->
+   <body>
+
+      <!-- Title & Subtitle -->
+      <h1>Gamification Proof of Concept</h1>
+      <h2>Progression Tool & Achievements Tool</h2>
+      <br/>
+      <br/>
+
+      <!-- Lecture Videos -->
+      <h3>LECTURE VIDEOS</h3>
+
+      <!-- Video1 -->
+      <b>Course Outline</b>
+      <br/>
+      Aslam Safla, 15 March 2021, 12:00:00 am
+      <br/>
+      <video id="lectureVideo1" width="560" height="315" controls>
+         <source src="https://media.uct.ac.za/static/mh_default_org/engage-player/ca90614e-6a32-4454-8c3c-0ef4507667b7/e0101243-6494-49fc-92f7-153852dabae7/Course_outline1015.mp4" type="video/mp4">
+      </video>
+      <label for="video-1"> <input type="checkbox" name="video" value="video1" id="video-1" onchange="updateVideoPercentage()"/>Video1</label>
+      <br/>
+      <br/>
+
+      <!-- Video2 -->
+      <b>Vula tabs</b>
+      <br/>
+      Aslam Safla, 15 March 2021, 12:00:00 am
+      <br/>
+      <video id="lectureVideo2" width="560" height="315" controls>
+         <source src="https://media.uct.ac.za/static/mh_default_org/engage-player/268cfca4-212d-40cd-9284-431be486f804/eb50a56c-0cb6-4a8c-a129-8302e56cdd7b/Vula1015.mp4" type="video/mp4">
+      </video>
+      <label for="video-2"> <input type="checkbox" name="video" value="video2" id="video-2" onclick="updateVideoPercentage()"/>Video2</label>
+      <br/>
+      <br/>
+
+      <!-- Video3 -->
+      <b>Intro to Computer Science</b>
+      <br/>
+      Aslam Safla, 15 March 2021, 12:00:00 am
+      <br/>
+      <video id="lectureVideo3" width="560" height="315" controls>
+         <source src="https://media.uct.ac.za/static/mh_default_org/engage-player/dd569cef-97c6-4877-8bb6-8e883c67f329/c90da4aa-650f-4a5c-8368-16d84743c58a/Intro_to_CS.mp4" type="video/mp4">
+      </video>
+      <label for="video-3"> <input type="checkbox" name="video" value="video3" id="video-3" onclick="updateVideoPercentage()"/>Video3</label>
+      <br/>
+      <br/>
+
+      <!-- Video4 --> 
+      <b>Basics 1a</b>
+      <br/>
+      James Gain, 16 March 2021, 12:00:00 am
+      <br/>
+      <video id="lectureVideo4" width="560" height="315" controls>
+         <source src="https://media.uct.ac.za/static/mh_default_org/engage-player/b33548df-dbf0-4d9d-907e-f9458aad0dba/98bbb79b-a8f2-4cd8-9903-fab6bb51bab2/Basics_1a.mp4" type="video/mp4">
+      </video>
+      <label for="video-4"> <input type="checkbox" name="video" value="video4" id="video-4" onclick="updateVideoPercentage()"/>Video4</label>
+      <br/>
+      <br/>
+    
+      <!-- This script autodetects when a video is passed 90% of its total duration and autoupdates the progress bars accordingly -->
+      <script>
+         
+         // Get the video elements 
+         var vid1 = document.getElementById("lectureVideo1");
+         var vid2 = document.getElementById("lectureVideo2");
+         var vid3 = document.getElementById("lectureVideo3");
+         var vid4 = document.getElementById("lectureVideo4");
+
+         // Set watched boolean variable to false intially
+         var vid1Watched = false;
+         var vid2Watched = false;
+         var vid3Watched = false;
+         var vid4Watched = false;
+      
+         // Assign an ontimeupdate event to the video elements, and execute autoUpdate function if the current playback position has changed
+         vid1.ontimeupdate = function() {autoUpdate("1")};
+         vid2.ontimeupdate = function() {autoUpdate("2")};
+         vid3.ontimeupdate = function() {autoUpdate("3")};
+         vid4.ontimeupdate = function() {autoUpdate("4")};
+      
+         // This function automatically detects if a video has passed 90% of its runtime and updates the checkboxes and progress bars accordingly
+         function autoUpdate() {
+      
+            // Checks first video play length
+            if (arguments[0] == "1") { 
+               var vidCurrentTime = document.getElementById("lectureVideo1").innerHTML = vid1.currentTime;
+               var vidLength = vid1.duration;
+            
+               if (vidCurrentTime/vidLength*100 > 90 && vid1Watched == false) { 
+                  document.getElementById("video-1").checked = true;
+                  updateVideoPercentage();
+                  vid1Watched = true;
+               }
+            }
+
+            // Checks second video play length
+            if (arguments[0] == "2") { 
+               var vidCurrentTime = document.getElementById("lectureVideo2").innerHTML = vid2.currentTime;
+               var vidLength = vid2.duration;
+            
+               if (vidCurrentTime/vidLength*100 > 90 && vid2Watched == false) { 
+                  document.getElementById("video-2").checked = true;
+                  updateVideoPercentage();
+                  vid2Watched = true;
+               }
+            }
+
+            // Checks third video play length
+            if (arguments[0] == "3") { 
+               var vidCurrentTime = document.getElementById("lectureVideo3").innerHTML = vid3.currentTime;
+               var vidLength = vid3.duration;
+            
+               if (vidCurrentTime/vidLength*100 > 90 && vid3Watched == false) { 
+                  document.getElementById("video-3").checked = true;
+                  updateVideoPercentage();
+                  vid3Watched = true;
+               }
+            }
+
+            // Checks fourth video play length
+            if (arguments[0] == "4") { 
+               var vidCurrentTime = document.getElementById("lectureVideo4").innerHTML = vid4.currentTime;
+               var vidLength = vid4.duration;
+            
+               if (vidCurrentTime/vidLength*100 > 90 && vid4Watched == false) { 
+                  document.getElementById("video-4").checked = true;
+                  updateVideoPercentage();
+                  vid4Watched = true;
+               }
+            }
+         }    
+      </script>
+
+      <!-- Linking for JS -->
+      <script src="gamification.js"></script>
+
+      <!-- Assignments -->
+
+      <!-- Upload assingment file using PHP -->
+      <form action="fileUploadScript.php" method="post" enctype="multipart/form-data">
+         Upload a File:
+         <input type="file" name="the_file" id="fileToUpload">
+         <input type="submit" name="submit" value="Start Upload">
+      </form>
+
+      <!-- Assignment checkboxes -->
+      <label for="assignment-1"> <input type="checkbox" name="assignment" value="assignment1" id="assignment-1" onclick="updateAssignmentPercentage()" />Assignment1</label>
+      <label for="assignment-2"> <input type="checkbox" name="assignment" value="assignment2" id="assignment-2" onclick="updateAssignmentPercentage()" />Assignment2</label>
+      <label for="assignment-3"> <input type="checkbox" name="assignment" value="assignment3" id="assignment-3" onclick="updateAssignmentPercentage()" />Assignment3</label>
+      <label for="assignment-4"> <input type="checkbox" name="assignment" value="assignment4" id="assignment-4" onclick="updateAssignmentPercentage()" />Assignment4</label>
+
+      <!------------------------------------------------------------------------------------------------------------------------------------>
+
+      <!-- Progress Indicators -->
+      <h2>CSC1015F Video Progress Indicator</h2>
+
+      <!-- Circular Progress Bar for Lecture Videos -->
+      <div class="canvas-wrap1">
+         <canvas id="canvas" width="300" height="300"></canvas>
+         <span id="procent"></span>
+      </div> 
+
+      <br/>
+      
+      <h2>CSC1015F Assignment Progress Indicator</h2>
+
+      <!-- Circular Progress Bar for Assignments -->
+      <div class="canvas-wrap2">
+         <canvas id="canvas2" width="300" height="300"></canvas>
+         <span id="procent2"></span>
+      </div> 
+         
+      <br/>
+      
+      <h2>CSC1015F Course Progress Indicator</h2>
+
+      <!-- Circular Progress Bar for total course progress -->
+      <div class="canvas-wrap3">
+         <canvas id="canvas3" width="300" height="300"></canvas>
+         <span id="procent3"></span>
+      </div> 
+
+      <br/>
+      <br/> 
+
+      <!------------------------------------------------------------------------------------------------------------------------------------>
+
+      <!-- Achievement Indicators -->
+
+      <h2>CSC1015F Achievements</h2>
+                  
+      <div id="content"> 
+
+         <!-- Functional Buttons -->
+         <input name="showAchievements" type="button" value="List All Achievements" onclick="Achievements.toggleList();"><br/>
+         <input name="lockAchievements" type="button" value="Lock All Achievements" onclick="Achievements.lockAllAchievements();"><br/> 
+         <input name="unlockAchievements" type="button" value="Unlock All Achievements" onclick="Achievements.unlockAllAchievements();"><br/> 
+         <input name="countAchievements" type="button" value="Count Total Available Achievements" onclick="Achievements.getCount();"><br/>
+         <input name="countLockedAchievements" type="button" value="Count Locked Achievements" onclick="Achievements.getLockedCount();"><br/>
+         <input name="countUnlockedAchievements" type="button" value="Count Unlocked Achievements" onclick="Achievements.getUnlockedCount();"><br/>
+         <input name="resetAchievements" type="button" value="Reset All Achievements" onclick="Achievements.fullreset();"><br/>
+         
+         <!-- Achievements List -->
+         <div id="achievementList"> 
+         </div>
+      </div>
+
+      <!-- New Achievement -->
+      <h2>Add Achievement</h2>
+      <input type="text" placeholder="Add Achievement" id="add" name="events">
+      <input type="text" placeholder="Subtext" id="subtext" name="events">
+      <input type="text" placeholder="Icon url" id="icon" name="events">
+      <button id="add" onclick="addAchievement()">Add</button>
+
+      <!-- Delete Achievement -->
+      <h2>Remove Achievement</h2>
+      <input type="text" placeholder="Remove Achievement" id="remove" name="events">
+      <button id="remove" onclick="removeAchievement()">Remove</button>
+
+      <br/>
+
+      <!-- Achievement Pop-up -->
+      <div id="status" class="achievement"><span class="title">Achievement Unlocked!</span><br/><span id="text">New Achievement</span></div>
+
+      <br/>
+      End Demo
+   </body>
+</html>
+ 
+<!------------------------------------------------------EOF---------------------------------------------------------------------------->
+
+
+
+
+
+
+
